@@ -10,7 +10,11 @@ add_custom_target(makefile COMMAND /usr/local/opt/php@7.1/bin/phpize &&
 
 set(SOURCE_FILES
         guzzle.c
-        src/client.c src/client.h)
+        src/client.c src/client.h
+        src/cookie/cookie_jar.c src/cookie/cookie_jar.h
+        src/cookie/cookie_jar_interface.c src/cookie/cookie_jar_interface.h
+        src/cookie/set_cookie.c src/cookie/set_cookie.h
+        src/common.h)
 
 add_executable(guzzle ${SOURCE_FILES})
 

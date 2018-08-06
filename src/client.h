@@ -5,9 +5,6 @@
 #ifndef GUZZLE_CLIENT_H
 #define GUZZLE_CLIENT_H
 
-#define GUZZLE_NS "GuzzleHttp"
-
-extern zend_class_entry *guzzle_client_ce;
 //
 void guzzle_init_client();
 //

@@ -6,6 +6,7 @@
 #include "ext/standard/php_var.h"
 #include "main/SAPI.h"
 #include <string.h>
+#include "common.h"
 #include "client.h"
 
 zend_class_entry *guzzle_client_ce;

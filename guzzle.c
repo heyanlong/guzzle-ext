@@ -27,6 +27,9 @@
 #include "ext/standard/info.h"
 #include "php_guzzle.h"
 #include "src/client.h"
+#include "src/cookie/cookie_jar_interface.h"
+#include "src/cookie/cookie_jar.h"
+#include "src/cookie/set_cookie.h"
 
 /* If you declare any globals in php_guzzle.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(guzzle)
@@ -102,6 +105,9 @@ PHP_MINIT_FUNCTION (guzzle) {
     REGISTER_INI_ENTRIES();
     */
 	guzzle_init_client();
+    guzzle_init_cookie_jar_interface();
+	guzzle_init_cookie_jar();
+    guzzle_init_set_cookie();
     return SUCCESS;
 }
 /* }}} */
