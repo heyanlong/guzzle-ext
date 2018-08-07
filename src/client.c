@@ -51,7 +51,8 @@ PHP_METHOD (Client, __construct) {
 
     zend_string *callable_name = NULL;
     if (!zend_hash_str_exists(Z_ARRVAL_P(config), ZEND_STRL("handler"))) {
-        // todo
+        zval handler;
+        zend_call_method(getThis(), guzzle_handler_stack_ce, NULL, ZEND_STRL("create"), &handler, 0, NULL, NULL);
         zval h;
         array_init(&h);
         zend_string *handler_key = zend_string_init("handler", sizeof("handler"), 0);

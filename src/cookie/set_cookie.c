@@ -56,7 +56,6 @@ void guzzle_init_set_cookie() {
 
     guzzle_set_cookie_ce = zend_register_internal_class(&ce);
 
-
     zend_declare_property_null(guzzle_set_cookie_ce, ZEND_STRL("defaults"), ZEND_ACC_PRIVATE | ZEND_ACC_STATIC);
     zend_declare_property_null(guzzle_set_cookie_ce, ZEND_STRL("data"), ZEND_ACC_PRIVATE);
 

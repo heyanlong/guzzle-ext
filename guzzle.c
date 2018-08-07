@@ -30,6 +30,8 @@
 #include "src/cookie/cookie_jar_interface.h"
 #include "src/cookie/cookie_jar.h"
 #include "src/cookie/set_cookie.h"
+//#include "src/test.h"
+#include "src/handler_stack.h"
 
 /* If you declare any globals in php_guzzle.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(guzzle)
@@ -104,10 +106,11 @@ PHP_MINIT_FUNCTION (guzzle) {
     /* If you have INI entries, uncomment these lines
     REGISTER_INI_ENTRIES();
     */
-	guzzle_init_client();
+    guzzle_init_client();
     guzzle_init_cookie_jar_interface();
-	guzzle_init_cookie_jar();
+    guzzle_init_cookie_jar();
     guzzle_init_set_cookie();
+    guzzle_init_handler_stack();
     return SUCCESS;
 }
 /* }}} */

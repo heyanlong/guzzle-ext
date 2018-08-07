@@ -59,10 +59,10 @@ if test "$PHP_GUZZLE" != "no"; then
   dnl
   dnl PHP_SUBST(GUZZLE_SHARED_LIBADD)
 
-  PHP_NEW_EXTENSION(guzzle, guzzle.c \
-  src/client.c \
-  src/cookie/cookie_jar.c \
+  PHP_NEW_EXTENSION(guzzle, src/handler_stack.c  src/client.c guzzle.c \
+  \
   src/cookie/cookie_jar_interface.c \
+  src/cookie/cookie_jar.c \
   src/cookie/set_cookie.c \
   , $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
 fi
