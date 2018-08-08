@@ -47,6 +47,7 @@ static zend_function_entry guzzle_init_set_cookie_method[] = {
 
         PHP_ME(SetCookie, getHttpOnly, NULL, ZEND_ACC_PUBLIC)
         PHP_ME(SetCookie, setHttpOnly, NULL, ZEND_ACC_PUBLIC)
+        PHP_FE_END
 };
 
 void guzzle_init_set_cookie() {

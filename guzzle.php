@@ -1,7 +1,11 @@
 <?php
 //putenv("HTTP_PROXY=cli");
 //var_dump(new GuzzleHttp\Client(['handler' => 121]));
-var_dump(new GuzzleHttp\Client());
+$a = GuzzleHttp\HandlerStack::create();
+
+$b = function(){};
+
+var_dump($a->push($b));
 
 //$cookie = new GuzzleHttp\Cookie\SetCookie(['Path' => '1213123', "HttpOnly" => true]);
 

@@ -7,8 +7,10 @@
 
 void guzzle_init_handler_stack();
 
-PHP_METHOD (HandlerStack, create);
+static PHP_METHOD (HandlerStack, create);
 
 PHP_METHOD (HandlerStack, __construct);
+
+PHP_METHOD (HandlerStack, push);
 
 #endif //GUZZLE_HANDLER_STACK_H
