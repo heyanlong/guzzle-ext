@@ -29,10 +29,6 @@ void guzzle_init_handler_stack() {
     zend_declare_property_null(guzzle_client_ce, ZEND_STRL("cached"), ZEND_ACC_PRIVATE);
 }
 
-static void test(INTERNAL_FUNCTION_PARAMETERS) {
-    php_printf("test");
-}
-
 //
 static PHP_METHOD (HandlerStack, create) {
     zval
@@ -45,18 +41,10 @@ static PHP_METHOD (HandlerStack, create) {
     zval name;
     ZVAL_STRING(&name, "a");
 
-    zval f;
-    zend_function zf;
-    zf.common.type = ZEND_INTERNAL_FUNCTION;
-    zf.common.arg_info = NULL;
-    zf.common.num_args = 0;
-    zf.common.required_num_args = 0;
-    zf.common.prototype = NULL;
-    zf.common.scope = NULL;
-    zf.internal_function.handler = test;
-    zend_create_closure(&f, &zf, NULL, NULL, NULL);
+    zval http_errors;
+    zend_call_method(&self, guzzle_middleware_ce, NULL, ZEND_STRL("httperrors"), &http_errors, 0, NULL, NULL);
 
-    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &f, &name);
+    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &http_errors, &name);
 //
     // todo
 
@@ -81,6 +69,10 @@ PHP_METHOD (HandlerStack, push) {
         return;
     }
 
+    zval par;
+    ZVAL_LONG(&par, 666);
     fci.retval = &retval;
+    fci.param_count = 1;
+    fci.params = &par;
     zend_call_function(&fci, &fcc);
 }

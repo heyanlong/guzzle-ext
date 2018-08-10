@@ -61,6 +61,7 @@ if test "$PHP_GUZZLE" != "no"; then
 
   PHP_NEW_EXTENSION(guzzle, guzzle.c \
   src/client.c \
+  src/middleware.c \
   src/handler_stack.c \
   src/cookie/cookie_jar_interface.c \
   src/cookie/cookie_jar.c \

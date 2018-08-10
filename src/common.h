@@ -13,5 +13,7 @@ extern zend_class_entry *guzzle_cookie_jar_ce;
 extern zend_class_entry *guzzle_set_cookie_ce;
 extern zend_class_entry *guzzle_cookie_jar_interface_ce;
 extern zend_class_entry *guzzle_handler_stack_ce;
+extern zend_class_entry *guzzle_middleware_ce;
+
 
 #endif //GUZZLE_COMMON_H
