@@ -31,26 +31,16 @@ void guzzle_init_handler_stack() {
 
 //
 static PHP_METHOD (HandlerStack, create) {
-    zval
-    self;
-    object_init_ex(&self, guzzle_handler_stack_ce);
-
-    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("__construct"), NULL, 0, NULL, NULL);
+    object_init_ex(return_value, guzzle_handler_stack_ce);
+    zend_call_method(return_value, guzzle_handler_stack_ce, NULL, ZEND_STRL("__construct"), NULL, 0, NULL, NULL);
 
 
     zval name;
-    ZVAL_STRING(&name, "a");
-
+    ZVAL_STRING(&name, "http_errors");
     zval http_errors;
+    zend_call_method(return_value, guzzle_middleware_ce, NULL, ZEND_STRL("httperrors"), &http_errors, 0, NULL, NULL);
+    zend_call_method(return_value, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &http_errors, &name);
 
-//    zend_call_method(&self, guzzle_middleware_ce, NULL, ZEND_STRL("httperrors"), &http_errors, 0, NULL, NULL);
-//
-//    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &http_errors, &name);
-
-//
-    // todo
-
-    RETURN_ZVAL(&self, 1, 0);
 }
 //
 PHP_METHOD (HandlerStack, __construct) {

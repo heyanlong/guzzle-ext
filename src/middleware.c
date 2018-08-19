@@ -48,9 +48,9 @@ static void http_errors_2(INTERNAL_FUNCTION_PARAMETERS) {
 
 }
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_http_error_1, 0, 0, 1)
-                ZEND_ARG_CALLABLE_INFO(0, handler, 0)
-ZEND_END_ARG_INFO()
+static const zend_arg_info arginfo_http_error_1[] = {
+        ZEND_ARG_CALLABLE_INFO(0, handler, 0)
+};
 
 static void http_errors_1(INTERNAL_FUNCTION_PARAMETERS) {
 
@@ -87,12 +87,19 @@ PHP_METHOD (Middleware, httpErrors) {
     zend_function
     zf;
     zf.common.type = ZEND_INTERNAL_FUNCTION;
+    zf.common.function_name = NULL;
     zf.common.arg_info = &arginfo_http_error_1;
     zf.common.num_args = 1;
     zf.common.required_num_args = 1;
     zf.common.prototype = NULL;
     zf.common.scope = NULL;
     zf.internal_function.handler = http_errors_1;
+    zf.internal_function.arg_info = &arginfo_http_error_1;
+    zf.internal_function.num_args = 1;
+    zf.internal_function.required_num_args = 1;
+    zf.internal_function.function_name = NULL;
+    zf.internal_function.prototype = NULL;
+    zf.internal_function.scope = NULL;
     zend_create_closure(return_value, &zf, NULL, NULL, getThis());
 
 }
