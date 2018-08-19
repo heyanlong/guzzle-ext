@@ -2,9 +2,10 @@ cmake_minimum_required(VERSION 3.7)
 project(guzzle)
 
 set(CMAKE_CXX_STANDARD 11)
+set(PHP_BIN /usr/local/php71/bin)
 
-add_custom_target(makefile COMMAND /usr/local/opt/php@7.1/bin/phpize &&
-        ./configure --with-php-config=/usr/local/opt/php@7.1/bin/php-config &&
+add_custom_target(makefile COMMAND ${PHP_BIN}/phpize &&
+        ./configure --with-php-config=${PHP_BIN}/php-config &&
         $(MAKE) clean && $(MAKE) -j4
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
@@ -19,7 +20,7 @@ set(SOURCE_FILES
 
 add_executable(guzzle ${SOURCE_FILES})
 
-set(PHP_SOURCE /usr/local/opt/php@7.1/include/php)
+set(PHP_SOURCE /usr/local/php71/include/php)
 include_directories(${PHP_SOURCE}/main)
 include_directories(${PHP_SOURCE}/Zend)
 include_directories(${PHP_SOURCE}/sapi)

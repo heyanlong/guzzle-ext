@@ -6,6 +6,9 @@
 #include "common.h"
 #include "middleware.h"
 #include <zend_closures.h>
+#include <zend_compile.h>
+
+#include "ext/standard/php_var.h"
 
 zend_class_entry *guzzle_middleware_ce;
 
@@ -26,12 +29,18 @@ void guzzle_init_middleware() {
 
 
 static void http_errors_2(INTERNAL_FUNCTION_PARAMETERS) {
-    php_printf("121");
-    zend_execute_data *a = EG(current_execute_data);
 
-    zend_array b = EG(symbol_table);
+    HashTable *static_variables = EX(func)->internal_function.prototype->op_array.static_variables;
+    zval *handler = zend_hash_str_find(static_variables, ZEND_STRL("handler"));
 
-    if(zend_hash_str_find(&b, ZEND_STRL("handler"))) {
+    zval *request,*options;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "zz", &request,&options) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+
+    if(handler) {
         php_printf("121");
     }else{
     }
@@ -39,18 +48,23 @@ static void http_errors_2(INTERNAL_FUNCTION_PARAMETERS) {
 
 }
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_http_error_1, 0, 0, 1)
+                ZEND_ARG_CALLABLE_INFO(0, handler, 0)
+ZEND_END_ARG_INFO()
+
 static void http_errors_1(INTERNAL_FUNCTION_PARAMETERS) {
-    zval
-    f;
+
+    zval *handler;
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "z", &handler) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+
     zend_function
     zf;
-    HashTable static_variables;
-    zend_hash_init(&static_variables, 10, NULL, NULL, 0);
-
-    zval
-    te;
-    ZVAL_LONG(&te, 12121);
-    zend_hash_update(&static_variables, zend_string_init(ZEND_STRL("handler"), 0), &te);
+    HashTable *static_variables = emalloc(sizeof(HashTable));
+    zend_hash_init(static_variables, HT_MIN_SIZE, NULL, NULL, 0);
+    zend_hash_update(static_variables, zend_string_init(ZEND_STRL("handler"), 0), handler);
 
 
     zf.common.type = ZEND_INTERNAL_FUNCTION;
@@ -62,41 +76,23 @@ static void http_errors_1(INTERNAL_FUNCTION_PARAMETERS) {
     zf.internal_function.handler = http_errors_2;
 
 
-    zend_create_closure(&f, &zf, NULL, NULL, NULL);
+    zend_create_closure(return_value, &zf, NULL, NULL, NULL);
 
-//    f.value.func->op_array.static_variables = &static_variables;
-    zend_closure_bind_var(&f, zend_string_init(ZEND_STRL("handler"), 0), &te);
-
-    zval
-    retval;
-    zend_fcall_info fci;
-    zend_fcall_info_cache fcc;
-    zend_fcall_info_init(&f, 0, &fci, &fcc, NULL, NULL);
-
-    fci.retval = &retval;
-    fci.param_count = 0;
-    fci.params = NULL;
-
-    zend_call_function(&fci, &fcc);
-
-    RETURN_ZVAL(&f, 1, 0);
+    return_value->value.func->op_array.static_variables = static_variables;
 }
 
 
 PHP_METHOD (Middleware, httpErrors) {
 
-    zval
-    f;
     zend_function
     zf;
     zf.common.type = ZEND_INTERNAL_FUNCTION;
-    zf.common.arg_info = NULL;
-    zf.common.num_args = 0;
-    zf.common.required_num_args = 0;
+    zf.common.arg_info = &arginfo_http_error_1;
+    zf.common.num_args = 1;
+    zf.common.required_num_args = 1;
     zf.common.prototype = NULL;
     zf.common.scope = NULL;
     zf.internal_function.handler = http_errors_1;
-    zend_create_closure(&f, &zf, NULL, NULL, NULL);
+    zend_create_closure(return_value, &zf, NULL, NULL, getThis());
 
-    RETURN_ZVAL(&f, 1, 0);
 }

@@ -24,9 +24,9 @@ void guzzle_init_handler_stack() {
 
     guzzle_handler_stack_ce = zend_register_internal_class(&ce);
 
-    zend_declare_property_null(guzzle_client_ce, ZEND_STRL("handler"), ZEND_ACC_PRIVATE);
-    zend_declare_property_null(guzzle_client_ce, ZEND_STRL("stack"), ZEND_ACC_PRIVATE);
-    zend_declare_property_null(guzzle_client_ce, ZEND_STRL("cached"), ZEND_ACC_PRIVATE);
+    zend_declare_property_null(guzzle_handler_stack_ce, ZEND_STRL("handler"), ZEND_ACC_PRIVATE);
+    zend_declare_property_null(guzzle_handler_stack_ce, ZEND_STRL("stack"), ZEND_ACC_PRIVATE);
+    zend_declare_property_null(guzzle_handler_stack_ce, ZEND_STRL("cached"), ZEND_ACC_PRIVATE);
 }
 
 //
@@ -42,9 +42,11 @@ static PHP_METHOD (HandlerStack, create) {
     ZVAL_STRING(&name, "a");
 
     zval http_errors;
-    zend_call_method(&self, guzzle_middleware_ce, NULL, ZEND_STRL("httperrors"), &http_errors, 0, NULL, NULL);
 
-    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &http_errors, &name);
+//    zend_call_method(&self, guzzle_middleware_ce, NULL, ZEND_STRL("httperrors"), &http_errors, 0, NULL, NULL);
+//
+//    zend_call_method(&self, guzzle_handler_stack_ce, NULL, ZEND_STRL("push"), NULL, 2, &http_errors, &name);
+
 //
     // todo
 
@@ -60,19 +62,26 @@ PHP_METHOD (HandlerStack, __construct) {
 
 PHP_METHOD (HandlerStack, push) {
 
-    zval retval;
-    zend_fcall_info fci;
-    zend_fcall_info_cache fcc;
-    zend_string name;
+    zval *middleware;
+    zend_string *name;
 
-    if (zend_parse_parameters(ZEND_NUM_ARGS(), "f|S", &fci, &fcc, &name) == FAILURE) {
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "z|S", &middleware, &name) == FAILURE) {
         return;
     }
 
-    zval par;
-    ZVAL_LONG(&par, 666);
-    fci.retval = &retval;
-    fci.param_count = 1;
-    fci.params = &par;
-    zend_call_function(&fci, &fcc);
+    zval *stack = zend_read_property(guzzle_handler_stack_ce, getThis(), ZEND_STRL("stack"), 0, NULL);
+
+    if(Z_TYPE_P(stack) != IS_ARRAY) {
+        array_init(stack);
+    }
+
+    zval *tmp = (zval*)emalloc(sizeof(zval));
+    array_init(tmp);
+    add_next_index_zval(tmp, middleware);
+    add_next_index_str(tmp, name);
+    add_next_index_zval(stack, tmp);
+    efree(tmp);
+
+    zend_update_property(guzzle_handler_stack_ce, getThis(),  ZEND_STRL("stack"), stack);
+    zend_update_property_null(guzzle_handler_stack_ce, getThis(),  ZEND_STRL("cached"));
 }
