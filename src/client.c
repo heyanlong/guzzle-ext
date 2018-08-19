@@ -53,19 +53,20 @@ PHP_METHOD (Client, __construct) {
     if (!zend_hash_str_exists(Z_ARRVAL_P(config), ZEND_STRL("handler"))) {
         zval handler;
         zend_call_method(getThis(), guzzle_handler_stack_ce, NULL, ZEND_STRL("create"), &handler, 0, NULL, NULL);
-        zval h;
-        array_init(&h);
-        zend_string *handler_key = zend_string_init("handler", sizeof("handler"), 0);
-        zend_hash_add(Z_ARRVAL_P(config), handler_key, &h);
-        zend_string_free(handler_key);
+
+        zval handle_key;
+        ZVAL_STRING(&handle_key, "handler");
+        zend_hash_add(Z_ARRVAL_P(config), handle_key.value.str, &handler);
 
     } else if (!zend_is_callable(zend_hash_str_find(Z_ARRVAL_P(config), ZEND_STRL("handler")), 0, &callable_name)) {
         // todo
         php_printf("异常");
     }
 
-    zend_call_method(getThis(), guzzle_client_ce, NULL, "configuredefaults", sizeof("configuredefaults") - 1, NULL, 1,
-                     config, NULL);
+    // Convert the base_uri to a UriInterface
+    // todo
+
+    zend_call_method(getThis(), guzzle_client_ce, NULL, ZEND_STRL("configuredefaults"), NULL, 1, config, NULL);
 
 }
 
@@ -98,7 +99,7 @@ PHP_METHOD (Client, configureDefaults) {
     ZVAL_BOOL(&default_bool_value, 0);
     zend_hash_add(Z_ARRVAL_P(&defaults), default_key, &default_bool_value);
 
-    zend_string_free(default_key);
+//    zend_string_free(default_key);
 
 
     zval func_getenv;
