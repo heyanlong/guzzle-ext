@@ -8,6 +8,7 @@
 #include <string.h>
 #include "common.h"
 #include "client.h"
+#include "ext/standard/php_array.h"
 
 zend_class_entry *guzzle_client_ce;
 
@@ -74,7 +75,7 @@ PHP_METHOD (Client, configureDefaults) {
     zval *config;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS(), "a", &config) == FAILURE) {
-        return;
+        RETURN_FALSE;
     }
 
     zval defaults;
@@ -110,9 +111,15 @@ PHP_METHOD (Client, configureDefaults) {
     call_user_function(EG(function_table), NULL, &func_getenv, &func_getenv_ret_ptr, 1, &func_getenv_params);
 
 
-    if (strncasecmp(sapi_module.name, "cli", 3) == 0 && strcasecmp(Z_STRVAL(func_getenv_ret_ptr), "") != 0) {
-        // todo
+    zval proxy;
+    array_init(&proxy);
+
+    if (strncasecmp(sapi_module.name, "cli", 3) == 0 && Z_TYPE_P(&func_getenv_ret_ptr) == IS_STRING && strcasecmp(Z_STRVAL(func_getenv_ret_ptr), "") != 0) {
+        zend_hash_add(Z_ARRVAL_P(&proxy), zend_string_init(ZEND_STRL("http"), 0), &func_getenv_ret_ptr);
     }
 
+    php_array_merge(config->value.arr, defaults.value.arr);
+
+    zend_update_property(guzzle_client_ce, getThis(), ZEND_STRL("config"), config);
 
 }
