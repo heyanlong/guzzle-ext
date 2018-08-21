@@ -9,6 +9,11 @@
 void guzzle_init_client();
 //
 PHP_METHOD (Client, __construct);
+
 PHP_METHOD (Client, configureDefaults);
+
+PHP_METHOD (Client, __call);
+
+PHP_METHOD(Client, request);
 
 #endif //GUZZLE_CLIENT_H

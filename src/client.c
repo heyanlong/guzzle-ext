@@ -9,6 +9,7 @@
 #include "common.h"
 #include "client.h"
 #include "ext/standard/php_array.h"
+#include "ext/standard/php_string.h"
 
 zend_class_entry *guzzle_client_ce;
 
@@ -19,9 +20,18 @@ zend_class_entry *guzzle_client_ce;
 //                ZEND_ARG_INFO(0, config)
 //ZEND_END_ARG_INFO()
 //
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo___call, 0, 0, 2)
+                ZEND_ARG_INFO(0, name)
+                ZEND_ARG_ARRAY_INFO(0, arguments, 0)
+ZEND_END_ARG_INFO()
+
 static zend_function_entry guzzle_client_method[] = {
         PHP_ME(Client, __construct, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
         PHP_ME(Client, configureDefaults, NULL, ZEND_ACC_PRIVATE)
+        PHP_ME(Client, __call, arginfo___call, ZEND_ACC_PUBLIC)
+        PHP_ME(Client, request, NULL, ZEND_ACC_PUBLIC)
+
         PHP_FE_END
 };
 
@@ -114,12 +124,41 @@ PHP_METHOD (Client, configureDefaults) {
     zval proxy;
     array_init(&proxy);
 
-    if (strncasecmp(sapi_module.name, "cli", 3) == 0 && Z_TYPE_P(&func_getenv_ret_ptr) == IS_STRING && strcasecmp(Z_STRVAL(func_getenv_ret_ptr), "") != 0) {
+    if (strncasecmp(sapi_module.name, "cli", 3) == 0 && Z_TYPE_P(&func_getenv_ret_ptr) == IS_STRING &&
+        strcasecmp(Z_STRVAL(func_getenv_ret_ptr), "") != 0) {
         zend_hash_add(Z_ARRVAL_P(&proxy), zend_string_init(ZEND_STRL("http"), 0), &func_getenv_ret_ptr);
     }
 
     php_array_merge(config->value.arr, defaults.value.arr);
 
     zend_update_property(guzzle_client_ce, getThis(), ZEND_STRL("config"), config);
+
+}
+
+PHP_METHOD (Client, __call) {
+    zend_string *name;
+    zval *arguments;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "Sa", &name, &arguments) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    zval *uri = zend_hash_index_find(Z_ARRVAL_P(arguments), 0);
+    zval *opts = zend_hash_index_find(Z_ARRVAL_P(arguments), 1);
+
+}
+
+PHP_METHOD (Client, request) {
+    zval *method, uri, options;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "zzz", &method, &uri, &options) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    zval *promist = (zval *) emalloc(sizeof(zval));
+    zend_call_method(getThis(), guzzle_client_ce, NULL, ZEND_STRL("requestasync"), promist, 0, NULL, NULL);
+
+    zend_call_method(&promist, ce, NULL, ZEND_STRL("wait"), return_value, 0, NULL, NULL);
+    efree(&promist);
 
 }
