@@ -14,6 +14,12 @@ PHP_METHOD (Client, configureDefaults);
 
 PHP_METHOD (Client, __call);
 
-PHP_METHOD(Client, request);
+PHP_METHOD (Client, request);
+
+PHP_METHOD (Client, requestAsync);
+
+PHP_METHOD (Client, buildUri);
+
+PHP_METHOD (Client, transfer);
 
 #endif //GUZZLE_CLIENT_H

@@ -31,6 +31,9 @@ static zend_function_entry guzzle_client_method[] = {
         PHP_ME(Client, configureDefaults, NULL, ZEND_ACC_PRIVATE)
         PHP_ME(Client, __call, arginfo___call, ZEND_ACC_PUBLIC)
         PHP_ME(Client, request, NULL, ZEND_ACC_PUBLIC)
+        PHP_ME(Client, requestAsync, NULL, ZEND_ACC_PUBLIC)
+        PHP_ME(Client, buildUri, NULL, ZEND_ACC_PUBLIC)
+        PHP_ME(Client, transfer, NULL, ZEND_ACC_PUBLIC)
 
         PHP_FE_END
 };
@@ -160,5 +163,21 @@ PHP_METHOD (Client, request) {
 
     zend_call_method(&promist, ce, NULL, ZEND_STRL("wait"), return_value, 0, NULL, NULL);
     efree(&promist);
+
+}
+
+PHP_METHOD (Client, requestAsync) {
+    zval *method, uri, options;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "zzz", &method, &uri, &options) == FAILURE) {
+        RETURN_FALSE;
+    }
+}
+
+PHP_METHOD (Client, buildUri) {
+
+}
+
+PHP_METHOD (Client, transfer) {
 
 }
