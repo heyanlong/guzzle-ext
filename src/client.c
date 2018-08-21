@@ -161,7 +161,7 @@ PHP_METHOD (Client, request) {
     zval *promist = (zval *) emalloc(sizeof(zval));
     zend_call_method(getThis(), guzzle_client_ce, NULL, ZEND_STRL("requestasync"), promist, 0, NULL, NULL);
 
-    zend_call_method(&promist, ce, NULL, ZEND_STRL("wait"), return_value, 0, NULL, NULL);
+//    zend_call_method(&promist, ce, NULL, ZEND_STRL("wait"), return_value, 0, NULL, NULL);
     efree(&promist);
 
 }

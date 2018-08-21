@@ -32,6 +32,7 @@
 #include "src/cookie/set_cookie.h"
 #include "src/handler_stack.h"
 #include "src/middleware.h"
+#include "src/psr/http_message/message_interface.h"
 
 /* If you declare any globals in php_guzzle.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(guzzle)
@@ -112,6 +113,7 @@ PHP_MINIT_FUNCTION (guzzle) {
     guzzle_init_cookie_jar();
     guzzle_init_set_cookie();
     guzzle_init_handler_stack();
+    guzzle_init_psr_http_message_message_interface();
     return SUCCESS;
 }
 /* }}} */

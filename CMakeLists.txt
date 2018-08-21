@@ -16,7 +16,7 @@ set(SOURCE_FILES
         src/cookie/cookie_jar.c src/cookie/cookie_jar.h
         src/cookie/cookie_jar_interface.c src/cookie/cookie_jar_interface.h
         src/cookie/set_cookie.c src/cookie/set_cookie.h
-        src/common.h src/middleware.c src/middleware.h)
+        src/common.h src/middleware.c src/middleware.h src/psr/http_message/message_interface.c src/psr/http_message/message_interface.h)
 
 add_executable(guzzle ${SOURCE_FILES})
 
