@@ -7,7 +7,7 @@
 
 void guzzle_init_psr_http_message_uploaded_file_interface();
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_psr_http_message_uploaded_file_moveTo, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_psr_http_message_uploaded_file_moveTo, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
                 ZEND_ARG_INFO(0, targetPath)
 ZEND_END_ARG_INFO()
 
