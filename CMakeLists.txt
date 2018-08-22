@@ -16,7 +16,14 @@ set(SOURCE_FILES
         src/cookie/cookie_jar.c src/cookie/cookie_jar.h
         src/cookie/cookie_jar_interface.c src/cookie/cookie_jar_interface.h
         src/cookie/set_cookie.c src/cookie/set_cookie.h
-        src/common.h src/middleware.c src/middleware.h src/psr/http_message/message_interface.c src/psr/http_message/message_interface.h)
+        src/common.h src/middleware.c src/middleware.h
+        src/psr/http_message/message_interface.c src/psr/http_message/message_interface.h
+        src/psr/http_message/request_interface.c src/psr/http_message/request_interface.h
+        src/psr/http_message/response_interface.c src/psr/http_message/response_interface.h
+        src/psr/http_message/server_request_interface.c src/psr/http_message/server_request_interface.h
+        src/psr/http_message/stream_interface.c src/psr/http_message/stream_interface.h
+        src/psr/http_message/uploaded_file_interface.c src/psr/http_message/uploaded_file_interface.h
+        src/psr/http_message/uri_interface.c src/psr/http_message/uri_interface.h)
 
 add_executable(guzzle ${SOURCE_FILES})
 

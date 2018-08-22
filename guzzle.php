@@ -1,6 +1,5 @@
 <?php
 //putenv("HTTP_PROXY=cli");
-
 $client = new GuzzleHttp\Client();
 
 var_dump($client->testCall('1212', [1,2,3,4]));

@@ -16,6 +16,11 @@ extern zend_class_entry *guzzle_cookie_jar_interface_ce;
 extern zend_class_entry *guzzle_handler_stack_ce;
 extern zend_class_entry *guzzle_middleware_ce;
 extern zend_class_entry *guzzle_psr_http_message_message_interface_ce;
-
+extern zend_class_entry *guzzle_psr_http_message_request_interface_ce;
+extern zend_class_entry *guzzle_psr_http_message_response_interface_ce;
+extern zend_class_entry *guzzle_psr_http_message_server_request_interface_ce;
+extern zend_class_entry *guzzle_psr_http_message_stream_interface_ce;
+extern zend_class_entry *guzzle_psr_http_message_uploaded_file_interface_ce;
+extern zend_class_entry *guzzle_psr_http_message_uri_interface_ce;
 
 #endif //GUZZLE_COMMON_H

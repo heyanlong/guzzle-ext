@@ -67,5 +67,11 @@ if test "$PHP_GUZZLE" != "no"; then
   src/cookie/cookie_jar.c \
   src/cookie/set_cookie.c \
   src/psr/http_message/message_interface.c \
+  src/psr/http_message/request_interface.c \
+  src/psr/http_message/response_interface.c \
+  src/psr/http_message/server_request_interface.c \
+  src/psr/http_message/stream_interface.c \
+  src/psr/http_message/uploaded_file_interface.c \
+  src/psr/http_message/uri_interface.c \
   , $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
 fi

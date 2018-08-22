@@ -33,6 +33,12 @@
 #include "src/handler_stack.h"
 #include "src/middleware.h"
 #include "src/psr/http_message/message_interface.h"
+#include "src/psr/http_message/request_interface.h"
+#include "src/psr/http_message/response_interface.h"
+#include "src/psr/http_message/server_request_interface.h"
+#include "src/psr/http_message/stream_interface.h"
+#include "src/psr/http_message/uploaded_file_interface.h"
+#include "src/psr/http_message/uri_interface.h"
 
 /* If you declare any globals in php_guzzle.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(guzzle)
@@ -114,6 +120,12 @@ PHP_MINIT_FUNCTION (guzzle) {
     guzzle_init_set_cookie();
     guzzle_init_handler_stack();
     guzzle_init_psr_http_message_message_interface();
+    guzzle_init_psr_http_message_request_interface();
+    guzzle_init_psr_http_message_response_interface();
+    guzzle_init_psr_http_message_server_request_interface();
+    guzzle_init_psr_http_message_stream_interface();
+    guzzle_init_psr_http_message_uploaded_file_interface();
+    guzzle_init_psr_http_message_uri_interface();
     return SUCCESS;
 }
 /* }}} */
