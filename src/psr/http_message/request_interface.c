@@ -8,7 +8,7 @@
 
 zend_class_entry *guzzle_psr_http_message_request_interface_ce;
 
-static zend_function_entry guzzle_init_psr_http_message_request_interface_method[] = {
+static zend_function_entry guzzle_psr_http_message_request_interface_method[] = {
         PHP_ABSTRACT_ME(RequestInterface, getRequestTarget, NULL)
         PHP_ABSTRACT_ME(RequestInterface, withRequestTarget, arginfo_psr_http_message_request_withRequestTarget)
         PHP_ABSTRACT_ME(RequestInterface, getMethod, NULL)
@@ -22,7 +22,7 @@ void guzzle_init_psr_http_message_request_interface() {
     zend_class_entry ce;
 
     INIT_NS_CLASS_ENTRY(ce, PSR_HTTP_MESSAGE_NS, "RequestInterface",
-                        guzzle_init_psr_http_message_request_interface_method);
+                        guzzle_psr_http_message_request_interface_method);
 
     guzzle_psr_http_message_request_interface_ce = zend_register_internal_interface(&ce);
     zend_class_implements(guzzle_psr_http_message_request_interface_ce, 1,
