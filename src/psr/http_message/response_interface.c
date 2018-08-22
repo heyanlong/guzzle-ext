@@ -9,9 +9,9 @@
 zend_class_entry *guzzle_psr_http_message_response_interface_ce;
 
 static zend_function_entry guzzle_psr_http_message_response_interface_method[] = {
-        PHP_ABSTRACT_ME(RequestInterface, getStatusCode, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, withStatus, arginfo_psr_http_message_response_withStatus)
-        PHP_ABSTRACT_ME(RequestInterface, getReasonPhrase, NULL)
+        PHP_ABSTRACT_ME(ResponseInterface, getStatusCode, NULL)
+        PHP_ABSTRACT_ME(ResponseInterface, withStatus, arginfo_psr_http_message_response_withStatus)
+        PHP_ABSTRACT_ME(ResponseInterface, getReasonPhrase, NULL)
         PHP_FE_END
 };
 

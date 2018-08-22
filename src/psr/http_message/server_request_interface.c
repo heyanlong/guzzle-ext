@@ -9,19 +9,19 @@
 zend_class_entry *guzzle_psr_http_message_server_request_interface_ce;
 
 static zend_function_entry guzzle_psr_http_message_server_request_interface_method[] = {
-        PHP_ABSTRACT_ME(RequestInterface, getServerParams, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, getCookieParams, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, withCookieParams, arginfo_psr_http_message_server_request_withCookieParams)
-        PHP_ABSTRACT_ME(RequestInterface, getQueryParams, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, withQueryParams, arginfo_psr_http_message_server_request_withQueryParams)
-        PHP_ABSTRACT_ME(RequestInterface, getUploadedFiles, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, withUploadedFiles, arginfo_psr_http_message_server_request_withUploadedFiles)
-        PHP_ABSTRACT_ME(RequestInterface, getParsedBody, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, withParsedBody, arginfo_psr_http_message_server_request_withParsedBody)
-        PHP_ABSTRACT_ME(RequestInterface, getAttributes, NULL)
-        PHP_ABSTRACT_ME(RequestInterface, getAttribute, arginfo_psr_http_message_server_request_getAttribute)
-        PHP_ABSTRACT_ME(RequestInterface, withAttribute, arginfo_psr_http_message_server_request_withAttribute)
-        PHP_ABSTRACT_ME(RequestInterface, withoutAttribute, arginfo_psr_http_message_server_request_withoutAttribute)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getServerParams, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getCookieParams, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withCookieParams, arginfo_psr_http_message_server_request_withCookieParams)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getQueryParams, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withQueryParams, arginfo_psr_http_message_server_request_withQueryParams)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getUploadedFiles, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withUploadedFiles, arginfo_psr_http_message_server_request_withUploadedFiles)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getParsedBody, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withParsedBody, arginfo_psr_http_message_server_request_withParsedBody)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getAttributes, NULL)
+        PHP_ABSTRACT_ME(ServerRequestInterface, getAttribute, arginfo_psr_http_message_server_request_getAttribute)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withAttribute, arginfo_psr_http_message_server_request_withAttribute)
+        PHP_ABSTRACT_ME(ServerRequestInterface, withoutAttribute, arginfo_psr_http_message_server_request_withoutAttribute)
         PHP_FE_END
 };
 
