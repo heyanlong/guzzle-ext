@@ -19,7 +19,7 @@ void guzzle_init_psr_http_message_response_interface() {
 
     zend_class_entry ce;
 
-    INIT_NS_CLASS_ENTRY(ce, PSR_HTTP_MESSAGE_NS, "RequestInterface",
+    INIT_NS_CLASS_ENTRY(ce, PSR_HTTP_MESSAGE_NS, "ResponseInterface",
                         guzzle_psr_http_message_response_interface_method);
 
     guzzle_psr_http_message_response_interface_ce = zend_register_internal_interface(&ce);
